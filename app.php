@@ -10,7 +10,21 @@ function createDescription(): void
 
 function createFile(string $path, string $filename): void
 {
-    fopen("$path/$filename.php", 'w');
+    file_put_contents("$path/$filename.php", '<?php');
+}
+
+function createClass(string $path, string $filename): void
+{
+    file_put_contents("$path/$filename.php", classContent($filename));
+}
+
+function classContent(string $className): string
+{
+    return "<?php" . PHP_EOL . "class $className " . PHP_EOL . "{
+    public function __construct()
+    {
+        //CONSTRUCT CONTENT
+    } " . PHP_EOL . "}";
 }
 
 if($argc === 1 || $argv[1] === '--help') {
@@ -23,6 +37,9 @@ if($argc === 1 || $argv[1] === '--help') {
         if(isset($argv[2]) && $argv[2] === '--file' && isset($argv[4])) {
             createFile($argv[3], $argv[4]);
             echo PHP_EOL . "\e[0;32mFile $argv[4].php created\e[0m" . PHP_EOL;
+        } else if(isset($argv[2]) && $argv[2] === '--class' && isset($argv[4])) {
+            createClass($argv[3], $argv[4]);
+            echo PHP_EOL . "\e[0;32mClass $argv[4].php created\e[0m" . PHP_EOL;
         } else {
             createDescription();
         }
