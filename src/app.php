@@ -1,6 +1,8 @@
 #!/usr/bin/php
 <?php
 
+require './src/classes/ClassGenerator.php';
+
 function createDescription(): void
 {
     echo PHP_EOL . "--create [ARGUMENTS]:" . PHP_EOL;
@@ -15,33 +17,6 @@ function createFile(string $path, string $filename): void
         mkdir($path, 0777, true);
     }
     file_put_contents("$path/$filename.php", '<?php');
-}
-
-function createClass(string $path, string $filename, string $attributes = ''): void
-{
-    if(!file_exists($path)) {
-        mkdir($path, 0777, true);
-    }
-    file_put_contents("$path/$filename.php", classContent($filename, $attributes));
-}
-
-function classContent(string $className, string $attributes): string
-{
-    return "<?php" . PHP_EOL . "class $className " . PHP_EOL . "{
-    " . PHP_EOL . $attributes . "
-    public function __construct()
-    {
-        //CONSTRUCT CONTENT
-    } " . PHP_EOL . "}";
-}
-
-function createAttributes(array $attributes): string
-{
-    $attrs = '';
-    foreach($attributes as $attribute) {
-        $attrs .= "private $$attribute;" . PHP_EOL;
-    }
-    return $attrs;
 }
 
 if($argc === 1 || $argv[1] === '--help') {
@@ -59,9 +34,9 @@ if($argc === 1 || $argv[1] === '--help') {
             if(isset($argv[5])) {
                 $attributes = explode(':', $argv[5]);
                 $attributes = explode(',', $attributes[1]);
-                createClass($argv[3], $argv[4], createAttributes($attributes));
+                ClassGenerator::createFile($argv[3], $argv[4], ClassGenerator::createAttributes($attributes));
             } else {
-                createClass($argv[3], $argv[4]);
+                ClassGenerator::createFile($argv[3], $argv[4], null);
             }
 
             echo PHP_EOL . "\e[0;32mClass $argv[4].php created\e[0m" . PHP_EOL;
