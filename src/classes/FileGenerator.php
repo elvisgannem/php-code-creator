@@ -1,5 +1,7 @@
 <?php
 
+namespace PhpCodeCreator\classes;
+
 class FileGenerator
 {
     public static function createFile(string $path, string $filename): void

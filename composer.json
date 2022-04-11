@@ -1,0 +1,18 @@
+{
+    "name": "elvis/php-code-creator",
+    "authors": [
+        {
+            "name": "Elvis Gannem",
+            "email": "egannem@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "PhpCodeCreator\\classes\\": "src/classes/"
+        }
+    },
+    "require": {},
+    "scripts": {
+        "php-helper": "src/app.php"
+    }
+}

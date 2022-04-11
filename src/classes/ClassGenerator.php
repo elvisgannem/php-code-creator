@@ -1,6 +1,8 @@
 <?php
 
-abstract class ClassGenerator
+namespace PhpCodeCreator\classes;
+
+class ClassGenerator
 {
     public static function createFile(string $path, string $filename, string|null $attributes): void
     {

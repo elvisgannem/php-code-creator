@@ -1,5 +1,7 @@
 <?php
 
+namespace PhpCodeCreator\classes;
+
 class HelpGenerator
 {
     public static function createWelcomeMessage(): void
